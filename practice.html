@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <input type="text" id="name"  placeholder="enter your name">
+        <input type="text" id="mail" placeholder="enter your mail">
+        <button>Add to cart</button>
+        <button><a href="./practice1.html">view next</a></button>
+    </form>
+    <script>
+
+        let formdetails=[]
+        let btn=document.querySelector("button")
+      btn.addEventListener("click",function(e)
+    {
+        e.preventDefault()
+        let name=document.getElementById("name")
+        let mail=document.getElementById("mail")
+        // console.log(name.value)
+       let obj={
+        name:name.value,
+        mail:mail.value
+
+       }
+       formdetails.push(obj)
+
+       console.log(obj)
+       localStorage.setItem("formdetails",JSON.stringify(formdetails))
+       name.value=""
+       mail.value=""
+    })
+        
+
+        
+    </script>
+    
+</body>
+
+</html>

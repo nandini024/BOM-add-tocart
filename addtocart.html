@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .back-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background: #0056b3;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .card h3 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .delete-btn {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+        .empty-cart {
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>🛍️ Your Cart</h2>
+        <a href="index.html" class="back-btn">⬅️ Back to Shop</a>
+    </div>
+
+    <div class="container" id="product-list"></div>
+
+    <script>
+        let arr = JSON.parse(localStorage.getItem("cartData1")) || [];
+
+        let parent = document.getElementById("product-list");
+
+        if (arr.length === 0) {
+            let emptyMessage = document.createElement("p");
+            emptyMessage.className = "empty-cart";
+            emptyMessage.innerText = "🛒 Your cart is empty!";
+            parent.append(emptyMessage);
+        } else {
+            arr.forEach((val, index) => {
+                let child = document.createElement("div");
+                child.className = "card";
+
+                let image = document.createElement("img");
+                let title = document.createElement("h3");
+                let price = document.createElement("p");
+                let rating = document.createElement("p");
+                let category = document.createElement("p");
+                let btn = document.createElement("button");
+
+                btn.className = "delete-btn";
+                btn.innerText = "❌ Remove";
+                btn.addEventListener("click", () => {
+                    let cartData = JSON.parse(localStorage.getItem("cartData1")) || [];
+                    cartData.splice(index, 1);
+                    localStorage.setItem("cartData1", JSON.stringify(cartData));
+                    location.reload();
+                });
+
+                price.innerText = `💰 Price: $${val.price}`;
+                title.innerText = val.title;
+                image.src = val.image;
+                rating.innerHTML = `⭐ Rating: ${val.rating.rate} (${val.rating.count} reviews)`;
+                category.innerText = `📦 Category: ${val.category}`;
+
+                child.append(image, title, price, rating, category, btn);
+                parent.append(child);
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let data=JSON.parse(localStorage.getItem("formdetails"))||[]
+        console.log(data)
+        let container=document.createElement("div")
+        let child=document.createElement("div")
+        let name=document.createElement("name")
+        let mail=document.createElement("mail")
+
+         
+        data.forEach(val => {
+            console.log(val);
+            let child=document.createElement("div")
+        let name=document.createElement("name")
+        let mail=document.createElement("mail")
+        child.append(name,mail)
+            mail.innerHTML=val.mail
+            name.innerText=val.name
+            container.append(child)
+        });
+        
+        document.body.append(container)
+    </script>
+</body>
+</html>
